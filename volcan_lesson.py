@@ -1,44 +1,28 @@
-import json
-from vulcan import Vulcan
-import itertools
 import datetime
+import itertools
+from take_cert import client
 
 
-with open('cert.json') as f:
-    certificate = json.load(f)
+timetable = list(itertools.islice(client.get_lessons(), 0, None))
 
-client = Vulcan(certificate)
-
-
-teacher = []
-timelessonfrom = []
-timelessonto = []
-namelesson = []
-
-lesson_plan = client.get_lessons()
-lesson = list(itertools.islice(lesson_plan, 0, None))
-
-i = 0
-while i < len(lesson):
-    teacher.append(lesson[i].teacher.short)
-    namelesson.append(lesson[i].subject.short)
-    timelessonto.append(lesson[i].time.to)
-    timelessonfrom.append(lesson[i].time.from_)
-    i += 1
-    # return testlist
+lessons = []
 
 
-# def addToEmbed():
+class Lesson:
+    def __init__(self, teacher, name, time_from, time_to):
+        self.teacher = teacher
+        self.name = name
+        self.time_from = str(time_from)[:-3]
+        self.time_to = str(time_to)[:-3]
 
 
-print(namelesson)
+for el in timetable:
+    lessons.append(Lesson(el.teacher.short, el.subject.name, el.time.to, el.time.from_))
 
 
-# def embedAdd(title, hexColor, takepricetype):
-#     embed = discord.Embed(title=title, color=hexColor)
-#     take_price = takeprice(takepricetype)
-#     i = 0
-#     for x in take_price:
-#         embed.add_field(name=f"{take_price[i][1]}", value=f"{take_price[i][0]}", inline=False)
-#         i += 1
-#     return embed
+def embedAdd(discord):
+    embed = discord.Embed(color=0x00f7ff)
+    for lesson in lessons:
+        embed.add_field(
+            name=f"{lesson.time_from} -> {lesson.time_to}", value=f"{lesson.name}", inline=False)
+    return embed

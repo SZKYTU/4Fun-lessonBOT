@@ -1,12 +1,7 @@
-import json
-from vulcan import Vulcan
-import itertools
 import datetime
+import itertools
+from take_cert import client
 
-with open('cert.json') as f:
-    certificate = json.load(f)
-
-client = Vulcan(certificate)
 
 yesterday = datetime.date(2020, 12, 22)
 today = datetime.date.today()

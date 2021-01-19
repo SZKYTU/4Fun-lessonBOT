@@ -2,7 +2,7 @@ import os
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
-from volcan_lesson import takingLessons
+from volcan_lesson import embedAdd
 
 load_dotenv()
 KEY_API = os.getenv('DISCORD_TOKEN')
@@ -14,6 +14,8 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 bot.remove_command("help")
 
+bot_by = "by SZKYTU ❤️"
+
 
 @bot.event
 async def on_ready():
@@ -24,14 +26,15 @@ async def on_ready():
 async def helpComand(ctx):
     embed = discord.Embed(
         title="DiggerInfo", description=f"!plan -> wyświetla plan lekcji", color=0x630f00)
-    embed.set_footer(text="by SZKYTU ❤️")
+    embed.set_footer(text=bot_by)
     await ctx.author.create_dm()
     await ctx.author.dm_channel.send(embed=embed)
 
 
-@bot.command(name="metals")
+@bot.command(name="plan")
 async def cmetalsPrice(ctx):
-    embed = embedAdd('Metals Price', 0x797e80, "metals")
+    embed = embedAdd(discord)
+    embed.set_footer(text=bot_by)
     await ctx.author.create_dm()
     await ctx.author.dm_channel.send(embed=embed)
 
