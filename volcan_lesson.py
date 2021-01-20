@@ -17,7 +17,7 @@ class Lesson:
 
 
 for el in timetable:
-    lessons.append(Lesson(el.teacher.short, el.subject.name, el.time.to, el.time.from_))
+    lessons.append(Lesson(el.teacher.short, el.subject.name, el.time.from_, el.time.to))
 
 
 def embedAdd(discord):
