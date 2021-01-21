@@ -26,3 +26,5 @@ def embedAdd(discord):
         embed.add_field(
             name=f"{lesson.time_from} -> {lesson.time_to}", value=f"{lesson.name}", inline=False)
     return embed
+
+##
