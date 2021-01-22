@@ -3,23 +3,21 @@ import itertools
 from take_cert import client
 
 
-yesterday = datetime.date(2020, 12, 22)
+yesterday = datetime.date(2021, 1, 21)
 today = datetime.date.today()
-print(today)
 
-less = client.get_messages()
-# less = client.get_messages(date_from=today, date_to=today)
-# next(less.title)
-# less_sub = less.title
-# print(type(less))
-#
 
-# for grade in client.get_messages(date_from=yesterday, date_to=today):
-# print(grade.title)
-# print(less)
-list = list(itertools.islice(less, 2, 4))
+class Message:
+    def __init__(self, name, content):
+        self.name = name
+        self.content = content
 
-# print(len(list))
-element = list[0]
 
-print(element)
+mess = client.get_messages(yesterday, today)
+tesm = []
+for el in mess:
+    tesm.append(Message(el.title, el.content))
+
+for tesms in tesm:
+    print(tesms.name, "\n")
+    print(tesms.content, "\n")
