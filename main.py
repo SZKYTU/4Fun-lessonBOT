@@ -1,9 +1,10 @@
 import os
 import discord
+from config import cfg
 from dotenv import load_dotenv
 from discord.ext import commands
 from volcan_lesson import embedAdd
-from config import cfg
+from volcan_message import embedAddLinks
 
 load_dotenv()
 KEY_API = os.getenv('DISCORD_TOKEN')
@@ -36,6 +37,14 @@ async def cmetalsPrice(ctx):
     embed = embedAdd(discord)
     embed.set_footer(text=bot_by)
     channel = bot.get_channel(cfg.timetable_channel)
+    await channel.send(embed=embed)
+
+
+@bot.command(name="link")
+async def lessonLink(ctx):
+    embed = embedAddLinks(discord)
+    embed.set_footer(text=bot_by)
+    channel = bot.get_channel(cfg.link_channel)
     await channel.send(embed=embed)
 
 bot.run(KEY_API)
