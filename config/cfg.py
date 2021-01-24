@@ -1,3 +1,5 @@
+# bot by
+bot_by = "by SZKYTU ❤️"
 
 # timetable channel
 timetable_channel = 704766288685432862

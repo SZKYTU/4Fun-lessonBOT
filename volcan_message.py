@@ -4,8 +4,10 @@ from config import cfg
 from take_cert import client
 
 
-yesterday = datetime.date(2021, 1, 21)
 today = datetime.date.today()
+yesterday = today - datetime.timedelta(days=1)
+
+mess = client.get_messages(yesterday, today)
 
 
 class Message:
@@ -15,7 +17,6 @@ class Message:
         self.titledate = re.search(r"\d\d.\d\d", titledate).group()
 
 
-mess = client.get_messages(yesterday, today)
 tesm = []
 for el in mess:
     tesm.append(Message(el.title, el.content, el.title))
