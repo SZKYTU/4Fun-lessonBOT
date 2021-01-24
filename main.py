@@ -1,5 +1,7 @@
 import os
 import discord
+import asyncio
+import schedule
 from config import cfg
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -24,20 +26,39 @@ async def on_ready():
     print('ARBEITEN!!!')
 
 
-@bot.command(name="pomoc")
-async def helpComand(ctx):
-    embed = discord.Embed(
-        title="DiggerInfo", description=f"!plan -> wyświetla plan lekcji", color=0x630f00)
-    embed.set_footer(text=bot_by)
-    await ctx.message.send(embed=embed)
+# @bot.command(name="plan")
+# async def cmetalsPrice(ctx):
+#     bot.delete_message()
+#     embed = embedAdd(discord)
+#     embed.set_footer(text=bot_by)
+#     channel = bot.get_channel(cfg.timetable_channel)
+#     await channel.send(embed=embed)
+
+def mainNotiSend():
+    def asyncloop():
+        async def notyficationSend():
+            # bot.delete_message()
+            print('noti send')
+            embed = embedAddLinks(discord)
+            embed.set_footer(text=bot_by)
+            channel = bot.get_channel(cfg.timetable_channel)
+            await channel.send(embed=embed)
+        bot.loop.create_task(notyficationSend())
+
+    async def timeLoop():
+        schedule.every(1).minutes.do(asyncloop)
+        # schedule.every().day.at("01:29").do(asyncloop)
+        i = 0
+        while True:
+            schedule.run_pending()
+            print(f'dzieje{i}')
+            await asyncio.sleep(60)
+            i += 1
+
+    bot.loop.create_task(timeLoop())
 
 
-@bot.command(name="plan")
-async def cmetalsPrice(ctx):
-    embed = embedAdd(discord)
-    embed.set_footer(text=bot_by)
-    channel = bot.get_channel(cfg.timetable_channel)
-    await channel.send(embed=embed)
+mainNotiSend()
 
 
 @bot.command(name="link")

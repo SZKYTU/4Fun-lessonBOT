@@ -1,4 +1,3 @@
-import datetime
 import itertools
 from take_cert import client
 
@@ -20,9 +19,9 @@ for el in timetable:
     lessons.append(Lesson(el.teacher.short, el.subject.name, el.time.from_, el.time.to))
 
 
-def embedAdd(discord):
-    embed = discord.Embed(color=0x00f7ff)
-    for lesson in lessons:
-        embed.add_field(
-            name=f"{lesson.time_from} -> {lesson.time_to}", value=f"{lesson.name}", inline=False)
-    return embed
+# def embedAdd(discord):
+#     embed = discord.Embed(color=0x00f7ff)
+#     for lesson in lessons:
+#         embed.add_field(
+#             name=f"{lesson.time_from} -> {lesson.time_to}", value=f"{lesson.name}", inline=False)
+#     return embed
