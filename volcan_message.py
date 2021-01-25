@@ -14,7 +14,11 @@ class Message:
     def __init__(self, name, content, titledate):
         self.name = name
         self.content = re.search(cfg.reg, content).group()
-        self.titledate = re.search(r"\d\d.\d\d", titledate).group()
+        match = re.search(r"\d\d.\d\d", titledate)
+        if match:
+            self.titledate = match.group()
+        else:
+            self.titledate = "- - -"
 
 
 tesm = []
@@ -23,7 +27,7 @@ for el in mess:
 
 
 def embedAddLinks(discord):
-    embed = discord.Embed(color=0x666666)
+    embed = discord.Embed(title="Linki do lekcji", color=0x440885)
     for tesms in tesm:
         embed.add_field(
             name=f"{tesms.name}", value=f"{tesms.content}", inline=False)

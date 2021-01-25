@@ -20,7 +20,7 @@ for el in timetable:
 
 
 def embedAdd(discord):
-    embed = discord.Embed(color=0x00f7ff)
+    embed = discord.Embed(title="Plan lekcji", color=0x074cad)
     for lesson in lessons:
         embed.add_field(
             name=f"{lesson.time_from} -> {lesson.time_to}", value=f"{lesson.name}", inline=False)
